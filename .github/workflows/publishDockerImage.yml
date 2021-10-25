@@ -5,7 +5,9 @@ on:
     branches: [ main ]
 
 jobs:
-  name: Publish on Docker Hub
+
+  publish:
+    name: Publish
     runs-on: ubuntu-18.04
     env:
       REPO: teixeira963
