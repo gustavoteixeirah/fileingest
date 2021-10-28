@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.configuration.annotation.DefaultBatchConfigurer;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -12,64 +13,25 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
 
-/**
- * Class used to configure the batch job related beans.
- *
- * @author Chris Schaefer
- * @author David Turanski
- */
+import javax.sql.DataSource;
 
-//@Slf4j
-//@Configuration(proxyBeanMethods = false)
-//public class BatchConfiguration {
-//
-//
-//    @Autowired
-//    public JobBuilderFactory jobBuilderFactory;
-//
-//    @Autowired
-//    public StepBuilderFactory stepBuilderFactory;
-//
-//    @Bean
-//    public Job job1() {
-//        return this.jobBuilderFactory.get("job1")
-//                .start(this.stepBuilderFactory.get("job1step1")
-//                        .tasklet(new Tasklet() {
-//                            @Override
-//                            public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-//                                log.info("Job1 was run");
-//                                return RepeatStatus.FINISHED;
-//                            }
-//                        })
-//                        .build())
-//                .build();
-//    }
-//
-//    @Bean
-//    public Job job2() {
-//        return this.jobBuilderFactory.get("job2")
-//                .start(this.stepBuilderFactory.get("job2step1")
-//                        .tasklet(new Tasklet() {
-//                            @Override
-//                            public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-//                                log.info("Job2 was run");
-//                                return RepeatStatus.FINISHED;
-//                            }
-//                        })
-//                        .build())
-//                .build();
-//    }
-//}
-
-
-@Configuration
 @Slf4j
+@Configuration
 @EnableBatchProcessing
-public class BatchConfiguration {
+@EnableAutoConfiguration(exclude = {HibernateJpaAutoConfiguration.class})
+public class BatchConfiguration extends DefaultBatchConfigurer {
+
+    @Override
+    public void setDataSource(DataSource dataSource) {
+        super.setDataSource(null);
+    }
+
     //
 //    @Autowired
 //    private ResourceLoader resourceLoader;
