@@ -12,3 +12,7 @@ spring:
   batch:
     jdbc:
       initialize-schema: never
+
+logging:
+  level:
+    org.springframework.cloud.task: DEBUG
