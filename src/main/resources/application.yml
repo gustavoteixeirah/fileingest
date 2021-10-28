@@ -6,7 +6,9 @@ spring:
     driverClassName: org.mariadb.jdbc.Driver
   sql:
     init:
-      mode: always
+      mode: never
   application:
     name: fileingest
-
+  batch:
+    jdbc:
+      initialize-schema: never

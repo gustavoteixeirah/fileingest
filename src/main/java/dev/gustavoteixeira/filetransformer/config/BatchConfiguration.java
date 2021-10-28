@@ -32,8 +32,6 @@ public class BatchConfiguration {
 //    @Autowired
 //    private ResourceLoader resourceLoader;
     @Autowired
-    private DataSource dataSource;
-    @Autowired
     private ResourceLoader resourceLoader;
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
@@ -92,14 +90,13 @@ public class BatchConfiguration {
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .tasklet((StepContribution contribution, ChunkContext chunkContext) -> {
-                    return RepeatStatus.FINISHED;
-                })
+                .tasklet((StepContribution contribution, ChunkContext chunkContext) -> RepeatStatus.FINISHED)
                 .build();
     }
 
     @Bean
     public Job job(Step step1) throws Exception {
+        log.info("WUBBA LUBBA DUB DUB");
         return jobBuilderFactory.get("job1")
                 .incrementer(new RunIdIncrementer())
                 .start(step1)

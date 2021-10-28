@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
-		<spring.cloud.task.version>2.1.1.RELEASE</spring.cloud.task.version>
+		<spring.cloud.task.version>2.3.4</spring.cloud.task.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -79,5 +79,20 @@
 		</dependencies>
 	</dependencyManagement>
 
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.1.5.RELEASE</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
