@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql://localhost:3306/scdf
     username: root
     password: dataflow
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: org.mariadb.jdbc.Driver
   sql:
     init:
       mode: always
