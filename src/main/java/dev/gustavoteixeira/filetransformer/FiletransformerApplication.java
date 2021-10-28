@@ -1,12 +1,15 @@
 package dev.gustavoteixeira.filetransformer;
 
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.task.configuration.EnableTask;
 
-@SpringBootApplication(exclude = {BatchAutoConfiguration.class, DataSourceAutoConfiguration.class})
-//@EnableTask
+//@SpringBootApplication(exclude = {BatchAutoConfiguration.class, DataSourceAutoConfiguration.class})
+////@EnableTask
+@EnableTask
+@SpringBootApplication
+@EnableBatchProcessing
 public class FiletransformerApplication {
 
     public static void main(String[] args) {
