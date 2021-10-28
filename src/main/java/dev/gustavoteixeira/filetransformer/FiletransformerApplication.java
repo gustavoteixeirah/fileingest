@@ -7,7 +7,7 @@ import org.springframework.cloud.task.configuration.EnableTask;
 
 //@SpringBootApplication(exclude = {BatchAutoConfiguration.class, DataSourceAutoConfiguration.class})
 ////@EnableTask
-//@EnableTask
+@EnableTask
 @SpringBootApplication
 public class FiletransformerApplication {
 

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost:19092/mem:dataflow
+    url: jdbc:h2:mem:test
     username: sa
     password:
     driverClassName: org.h2.Driver
@@ -9,7 +9,7 @@ spring:
       mode: never
   batch:
     jdbc:
-      initialize-schema: never
+      initialize-schema: always
   application:
     name: fileingest
 
