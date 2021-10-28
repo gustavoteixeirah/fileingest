@@ -12,9 +12,11 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ResourceLoader;
+
+import javax.sql.DataSource;
 
 /**
  * Class used to configure the batch job related beans.
@@ -25,18 +27,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Slf4j
 @EnableBatchProcessing
-//@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
-@EnableAutoConfiguration
 public class BatchConfiguration {
-//
+    //
 //    @Autowired
 //    private ResourceLoader resourceLoader;
-
     @Autowired
-    public JobBuilderFactory jobBuilderFactory;
-
+    private DataSource dataSource;
     @Autowired
-    public StepBuilderFactory stepBuilderFactory;
+    private ResourceLoader resourceLoader;
+    @Autowired
+    private JobBuilderFactory jobBuilderFactory;
+    @Autowired
+    private StepBuilderFactory stepBuilderFactory;
 
 //    @Bean
 //    @StepScope

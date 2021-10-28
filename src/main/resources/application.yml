@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/scdf
+    username: root
+    password: dataflow
+    driverClassName: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
+  application:
+    name: fileingest
+
