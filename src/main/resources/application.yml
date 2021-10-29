@@ -17,3 +17,11 @@ spring:
 logging:
   level:
     org.springframework.cloud.task: DEBUG
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: us-east-1
+      auto: false

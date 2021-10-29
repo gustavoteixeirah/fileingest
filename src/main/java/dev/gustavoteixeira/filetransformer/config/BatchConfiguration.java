@@ -4,6 +4,7 @@ package dev.gustavoteixeira.filetransformer.config;
 import dev.gustavoteixeira.filetransformer.domain.Person;
 import dev.gustavoteixeira.filetransformer.mapper.fieldset.PersonFieldSetMapper;
 import dev.gustavoteixeira.filetransformer.processor.PersonItemProcessor;
+import dev.gustavoteixeira.filetransformer.utils.ResourceUtils;
 import dev.gustavoteixeira.filetransformer.writer.CustomItemWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -11,9 +12,10 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.*;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.mapping.DefaultLineMapper;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -46,21 +48,26 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
 
     @Bean
     @StepScope
-    public ItemStreamReader<Person> reader(@Value("#{jobParameters['bucketName']}") String bucketName,
-                                           @Value("#{jobParameters['objectName']}") String objectName) {
-        log.info("THE LOG I WANT TO SEE");
+    public FlatFileItemReader<Person> reader(@Value("#{jobParameters['bucketName']}") String bucketName,
+                                             @Value("#{jobParameters['objectName']}") String objectName) {
         log.info("bucketName: {}", bucketName);
         log.info("objectName: {}", objectName);
 
+        var reader = new FlatFileItemReader<Person>();
+        reader.setLinesToSkip(1);
+        reader.setResource(ResourceUtils.getResource(resourceLoader, "gustavoteixeiradev-scdf", "gustavoteixeiradev-scdf/name-list.csv"));
 
-        log.info("BEFORE THING THAT IS GOING TO BREAK FOR SURE");
-        return new FlatFileItemReaderBuilder<Person>()
-                .name("reader")
-                .resource(resourceLoader.getResource(objectName))
-                .delimited()
-                .names("firstName", "lastName")
-                .fieldSetMapper(new PersonFieldSetMapper())
-                .build();
+        var tokenizer = new DelimitedLineTokenizer();
+        tokenizer.setDelimiter(",");
+        tokenizer.setNames("FIRSTNAME", "LASTNAME");
+
+        var mapper = new DefaultLineMapper<Person>();
+        mapper.setLineTokenizer(tokenizer);
+        mapper.setFieldSetMapper(new PersonFieldSetMapper());
+        mapper.afterPropertiesSet();
+
+        reader.setLineMapper(mapper);
+        return reader;
     }
 
     @Bean
