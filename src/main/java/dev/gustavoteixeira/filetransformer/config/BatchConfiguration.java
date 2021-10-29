@@ -35,7 +35,6 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
         super.setDataSource(dataSource);
     }
 
-    //
     @Autowired
     private DataSource dataSource;
     @Autowired
@@ -49,18 +48,6 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
     @StepScope
     public ItemStreamReader<Person> reader(@Value("#{jobParameters['bucketName']}") String bucketName,
                                            @Value("#{jobParameters['objectName']}") String objectName) {
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
-        log.info("THE LOG I WANT TO SEE");
         log.info("THE LOG I WANT TO SEE");
         log.info("bucketName: {}", bucketName);
         log.info("objectName: {}", objectName);
