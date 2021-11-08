@@ -25,3 +25,5 @@ cloud:
     region:
       static: us-east-1
       auto: false
+task:
+  customConfig: iampoppy
