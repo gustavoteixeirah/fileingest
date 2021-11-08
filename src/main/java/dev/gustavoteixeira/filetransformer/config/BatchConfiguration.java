@@ -1,6 +1,7 @@
 package dev.gustavoteixeira.filetransformer.config;
 
 
+import dev.gustavoteixeira.filetransformer.CustomProps;
 import dev.gustavoteixeira.filetransformer.domain.Person;
 import dev.gustavoteixeira.filetransformer.mapper.fieldset.PersonFieldSetMapper;
 import dev.gustavoteixeira.filetransformer.processor.PersonItemProcessor;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
@@ -30,6 +32,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableBatchProcessing
 @EnableAutoConfiguration(exclude = {HibernateJpaAutoConfiguration.class})
+@EnableConfigurationProperties({CustomProps.class})
+
 public class BatchConfiguration extends DefaultBatchConfigurer {
 
     @Override
