@@ -6,7 +6,7 @@ import org.springframework.util.Assert;
 /**
  * @author Glenn Renfro
  */
-@ConfigurationProperties
+@ConfigurationProperties("timestamp")
 public class TimestampTaskProperties {
 
     /**
@@ -15,8 +15,8 @@ public class TimestampTaskProperties {
     private String format = "yyyy-MM-dd HH:mm:ss.SSS";
 
     public String getFormat() {
-        Assert.hasText(this.format, "format must not be empty nor null");
-        return this.format;
+        Assert.hasText(format, "format must not be empty nor null");
+        return format;
     }
 
     public void setFormat(String format) {
